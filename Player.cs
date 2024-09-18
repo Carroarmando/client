@@ -20,7 +20,7 @@ namespace LatoClient
         Timer change = new Timer(250);
         public int cube = 0, chunk = 0, pixel = 0;
         int cu = 0, ch = 0, pi = 0;
-        public Keyboard.Key k;
+        public int k;
         public Player()
         {
             sprite.TextureRect = new IntRect(0, 0, 12, 18);
@@ -32,46 +32,36 @@ namespace LatoClient
 
         private void Change_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (k == Keyboard.Key.W || k == Keyboard.Key.A || k == Keyboard.Key.S || k == Keyboard.Key.D)
+            if (k == 0 || k == 1 || k ==2 || k == 3)
                 if (s == 3)
                     s = 0;
                 else
                     s++;
         }
 
-        public void Move(Keyboard.Key k)
+        public void Move(int k)
         {
             this.k = k;
 
             switch (k)
             {
-                case Keyboard.Key.W:
+                case 0:
                     changepixel(-2);
                     break;
-                case Keyboard.Key.A:
+                case 1:
                     changepixel(-20);
                     break;
-                case Keyboard.Key.S:
+                case 2:
                     changepixel(2);
                     break;
-                case Keyboard.Key.D:
+                case 3:
                     changepixel(20);
                     break;
             }
 
-            string str = "plr" + i + (pi < 10 ? "0" + pi : pi) + (ch < 10 ? "0" + ch : ch) + (cu < 10 ? "0" + cu : cu) + s + (k == Keyboard.Key.W ? 0 :
-                                                                                                                              k == Keyboard.Key.A ? 1 :
-                                                                                                                              k == Keyboard.Key.S ? 2 :
-                                                                                                                              k == Keyboard.Key.D ? 3 : 4);
-            Console.WriteLine(str);
-            byte[] data = Encoding.UTF8.GetBytes(str);
-
-            int offset = 0;
-            while (offset < data.Length)
-            {
-                Gioco.stream.Write(data, offset, Math.Min(data.Length - offset, 1024));
-                offset += 1024;
-            }
+            string str = "plr" + i + (pi < 10 ? "0" + pi : pi) + (ch < 10 ? "0" + ch : ch) + (cu < 10 ? "0" + cu : cu) + s + (k < 4 ? k : 4);
+            Console.WriteLine(str); //plr[num][pi][ch][cu][stato][k]
+            Gioco.Write(str);
 
             void changepixel(int value)
             {

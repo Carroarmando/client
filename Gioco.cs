@@ -54,7 +54,10 @@ namespace LatoClient
 
         private static void Move_Elapsed(object sender, ElapsedEventArgs e)
         {
-            player.Move(k);
+            player.Move(k == Keyboard.Key.W ? 0 : 
+                        k == Keyboard.Key.A ? 1 : 
+                        k == Keyboard.Key.S ? 2 : 
+                        k == Keyboard.Key.D ? 3 : 4);
         }
 
         private static void Finestra_KeyReleased(object sender, KeyEventArgs e)
@@ -149,7 +152,7 @@ namespace LatoClient
             }
         }
 
-        static void Write(string message)
+        public static void Write(string message)
         {
             byte[] str = Encoding.UTF8.GetBytes(message);
             byte[] lengthPrefix = BitConverter.GetBytes(str.Length);
@@ -173,22 +176,7 @@ namespace LatoClient
             }
             else
             {
-                if (i < player.i)
-                {
-                    npc[i].pixel = Convert.ToInt16(msg[1..3]);
-                    npc[i].chunk = Convert.ToInt16(msg[3..5]);
-                    npc[i].cube = Convert.ToInt16(msg[5..7]);
-                    npc[i].stato = Convert.ToInt16(msg[7]);
-                    npc[i].dir = Convert.ToInt16(msg[8]);
-                }
-                else
-                {
-                    npc[i - 1].pixel = Convert.ToInt16(msg[1..3]);
-                    npc[i - 1].chunk = Convert.ToInt16(msg[3..5]);
-                    npc[i - 1].cube = Convert.ToInt16(msg[5..7]);
-                    npc[i - 1].stato = Convert.ToInt16(msg[7]);
-                    npc[i - 1].dir = Convert.ToInt16(msg[8]);
-                }
+                throw new Exception("numero errato");
             }
         }
         static void map(object message)
@@ -198,7 +186,7 @@ namespace LatoClient
             for (int y = 0; y < 7; y++)
                 for (int x = 0; x < 7; x++)
                 {
-                    int i = y * 7 + x;
+                    int i = (y * 7 + x) * 2;
                     mappa[x, y] = Convert.ToInt16(msg[i..(i + 2)]);
                 }
 
