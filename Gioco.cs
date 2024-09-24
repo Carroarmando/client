@@ -91,9 +91,9 @@ namespace LatoClient
             if (player.dir == 1)
                 player.sprite.TextureRect = new IntRect(player.stato * 12, 18, 12, 18);
             if (player.dir == 2)
-                player.sprite.TextureRect = new IntRect(player.stato * 12, 36, 12, 18);
-            if (player.dir == 3)
                 player.sprite.TextureRect = new IntRect(player.stato * 12, 0, 12, 18);
+            if (player.dir == 3)
+                player.sprite.TextureRect = new IntRect(player.stato * 12, 36, 12, 18);
 
             player.sprite.Position = new Vector2f(player.cube / 10 * 81 + player.chunk / 10 * 9 + player.pixel / 10,
                                                   player.cube % 10 * 81 + player.chunk % 10 * 9 + player.pixel % 10);
@@ -108,9 +108,9 @@ namespace LatoClient
                         if (n.dir == 1)
                             n.sprite.TextureRect = new IntRect(n.stato * 12, 18, 12, 18);
                         if (n.dir == 2)
-                            n.sprite.TextureRect = new IntRect(n.stato * 12, 36, 12, 18);
-                        if (n.dir == 3)
                             n.sprite.TextureRect = new IntRect(n.stato * 12, 0, 12, 18);
+                        if (n.dir == 3)
+                            n.sprite.TextureRect = new IntRect(n.stato * 12, 36, 12, 18);
 
                         n.sprite.Position = new Vector2f(n.cube / 10 * 81 + n.chunk / 10 * 9 + n.pixel / 10,
                                                          n.cube % 10 * 81 + n.chunk % 10 * 9 + n.pixel % 10);
@@ -160,7 +160,7 @@ namespace LatoClient
             stream.Write(str, 0, str.Length);
             stream.Flush();
         }//invia il messaggio al server
-
+        
         static void plr(object message)
         {
             string msg = message.ToString();
